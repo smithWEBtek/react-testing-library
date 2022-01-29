@@ -7,13 +7,18 @@ function Counter() {
 
   const incrementCounter = () => {
     const currentCounterValue = counterValue;
-    setCounterValue(currentCounterValue + 1)
+    setCounterValue(currentCounterValue + inputValue)
   };
 
   const decrementCounter = () => {
     const currentCounterValue = counterValue;
-    setCounterValue(currentCounterValue - 1)
+    setCounterValue(currentCounterValue - inputValue)
   };
+
+  const updateInputValue = e => {
+    const newInputValue = +e.target.value
+    setInputValue(newInputValue)
+  }
 
   return (
     <div>
@@ -27,7 +32,9 @@ function Counter() {
         className="text-center"
         data-testid="input"
         type="number"
-        defaultValue={inputValue} />
+        defaultValue={inputValue}
+        onChange={updateInputValue}
+      />
       <button
         data-testid="subtract-btn"
         onClick={decrementCounter}

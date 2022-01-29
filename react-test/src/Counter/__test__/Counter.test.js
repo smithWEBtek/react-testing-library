@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Counter from '../../Counter/Counter';
 
 it("renders header with correct text", () => {
@@ -34,4 +34,17 @@ it("subtract button renders with -", () => {
   const subtractBtn = screen.getByTestId("subtract-btn")
 
   expect(subtractBtn.textContent).toBe("-");
+});
+
+it("changing input value, changes counter increment/decrement value", () => {
+  render(<Counter />)
+  const counterElement = screen.getByTestId("counter");
+  const addBtn = screen.getByTestId("add-btn")
+  const inputElement = screen.getByTestId("input")
+  expect(counterElement.textContent).toBe("0")
+
+  fireEvent.change(inputElement, { target: { value: 4 } })
+  fireEvent.click(addBtn);
+
+  expect(counterElement.textContent).toBe("4")
 });
